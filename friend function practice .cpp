@@ -130,3 +130,158 @@ int main() {
     sum = add(c1, c2);
     cout << "Sum = "; sum.display();
 }
+
+
+
+
+
+
+#include <iostream>
+using namespace std;
+
+class Student {
+    string name;
+    int m1, m2, m3;
+public:
+    void input() {
+        cout << "Enter name of Student: ";
+        cin >> name;
+        cout << "Enter marks of 3 subjects: ";
+        cin >> m1 >> m2 >> m3;
+    }
+    friend void Average(Student);
+};
+
+void Average(Student s) {
+    cout << "Average = " << (s.m1 + s.m2 + s.m3) / 3.0;
+}
+
+int main() {
+    Student s;
+    s.input();
+    Average(s);
+    return 0;
+}
+
+
+#include <iostream>
+using namespace std;
+
+class Beta;
+class Gamma;
+
+class Alpha {
+    int a;
+public:
+    void input() { 
+        cout << "Enter value of Alpha: ";
+        cin >> a;
+    }
+    friend void sum(Alpha, Beta, Gamma);
+};
+
+class Beta {
+    int b;
+public:
+    void input() { 
+        cout << "Enter value of Beta: ";
+        cin >> b;
+    }
+    friend void sum(Alpha, Beta, Gamma);
+};
+
+class Gamma {
+    int c;
+public:
+    void input() { 
+        cout << "Enter value of Gamma: ";
+        cin >> c;
+    }
+    friend void sum(Alpha, Beta, Gamma);
+};
+
+void sum(Alpha x, Beta y, Gamma z) {
+    cout << "Sum = " << x.a + y.b + z.c << endl;
+}
+
+int main() {
+    Alpha a;
+    Beta b;
+    Gamma c;
+    
+    a.input();
+    b.input();
+    c.input();
+    
+    sum(a, b, c);
+}
+
+
+#include <iostream>
+using namespace std;
+
+class Point {
+    float x, y;
+public:
+    void input() {
+        cout << "Enter X: ";
+        cin >> x;
+        cout << "Enter Y: ";
+        cin >> y;
+    }
+    friend float distance(Point, Point);
+};
+
+float distance(Point p1, Point p2) {
+    float dx = p2.x - p1.x;
+    float dy = p2.y - p1.y;
+    return dx * dx + dy * dy; 
+}
+
+int main() {
+    Point p1, p2;
+    cout << "First point:\n";
+    p1.input();
+    cout << "Second point:\n";
+    p2.input();
+    cout << "Distance squared = " << distance(p1, p2);
+    return 0;
+}
+
+
+#include <iostream>
+using namespace std;
+
+class Audit; 
+
+class BankAccount {
+    float balance;
+public:
+    void input() {
+        cout << "Enter account balance: ";
+        cin >> balance;
+    }
+    friend void Account(BankAccount, Audit);
+};
+
+class Audit {
+public:
+    friend void Account(BankAccount, Audit);
+};
+
+void Account(BankAccount acc, Audit) {
+    cout << "Auditing account...\n";
+    cout << "Account balance = " << acc.balance << endl;
+}
+
+int main() {
+    BankAccount acc;
+    Audit a;
+    acc.input();
+    Account(acc, a);
+    return 0;
+}
+
+
+
+
